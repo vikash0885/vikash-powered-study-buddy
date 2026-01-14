@@ -180,7 +180,7 @@ function Chat({ user, setUser }) {
                                             <small>Engineering, Arts, Science</small>
                                         </button>
                                         <button
-                                            className="suggestion-card image-card"
+                                            className="suggestion-card image-card programming-card"
                                             onClick={() => setSubject('programming')}
                                             style={{
                                                 backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${programmingImage})`,
