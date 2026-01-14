@@ -1,5 +1,20 @@
+```json
 {
     "version": 2,
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/backend/server.js"
+        },
+        {
+            "source": "/assets/(.*)",
+            "destination": "/frontend/assets/$1"
+        },
+        {
+            "source": "/((?!api/).*)",
+            "destination": "/frontend/index.html"
+        }
+    ],
     "builds": [
         {
             "src": "backend/server.js",
@@ -12,19 +27,6 @@
                 "distDir": "dist"
             }
         }
-    ],
-    "routes": [
-        {
-            "src": "/api/(.*)",
-            "dest": "/backend/server.js"
-        },
-        {
-            "src": "/assets/(.*)",
-            "dest": "/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/index.html"
-        }
     ]
 }
+```
