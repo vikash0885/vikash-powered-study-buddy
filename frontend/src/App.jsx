@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Chat from './pages/Chat';
+import StudyPlan from './pages/StudyPlan';
 import ChatWidget from './components/ChatWidget';
 import './index.css';
 
@@ -44,6 +45,10 @@ function App() {
                 <Route
                     path="/chat"
                     element={user ? <Chat user={user} setUser={setUser} /> : <Navigate to="/login" />}
+                />
+                <Route
+                    path="/study-plan"
+                    element={user ? <StudyPlan user={user} setUser={setUser} /> : <Navigate to="/login" />}
                 />
                 <Route path="/" element={<Navigate to={user ? "/chat" : "/login"} />} />
             </Routes>

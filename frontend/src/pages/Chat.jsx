@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import ChatMessage from '../components/ChatMessage';
 import SubjectSelector from '../components/SubjectSelector';
-import StudyPlanGenerator from '../components/StudyPlanGenerator';
 import Footer from '../components/Footer';
 import { chatAPI, authAPI } from '../services/api';
 import schoolImage from '../assets/school.jpg';
@@ -20,7 +19,6 @@ function Chat({ user, setUser }) {
     const [currentConversation, setCurrentConversation] = useState(null);
     const [conversations, setConversations] = useState([]);
     const [subject, setSubject] = useState(null);
-    const [showStudyPlan, setShowStudyPlan] = useState(false);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
 
@@ -150,7 +148,6 @@ function Chat({ user, setUser }) {
                 onSelectConversation={loadConversation}
                 onDeleteConversation={handleDeleteConversation}
                 onLogout={handleLogout}
-                onToggleStudyPlan={() => setShowStudyPlan(!showStudyPlan)}
                 onUpdateProfile={handleUpdateProfile}
             />
 
@@ -160,110 +157,106 @@ function Chat({ user, setUser }) {
                     <SubjectSelector subject={subject} onSelectSubject={setSubject} />
                 </div>
 
-                {showStudyPlan ? (
-                    <StudyPlanGenerator onClose={() => setShowStudyPlan(false)} />
-                ) : (
-                    <>
-                        <div className="chat-messages">
-                            {messages.length === 0 ? (
-                                <div className="welcome-message">
-                                    <h1 className="gradient-text">Hello, {user?.name}!</h1>
-                                    <p>I'm your Vikash Study Buddy. Ask me anything about:</p>
-                                    <div className="suggestion-grid">
-                                        <button
-                                            className="suggestion-card image-card"
-                                            onClick={() => setSubject('school')}
-                                            style={{
-                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${schoolImage})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center'
-                                            }}
-                                        >
-                                            <span>School</span>
-                                            <small>Class 1-12, Homework</small>
-                                        </button>
-                                        <button
-                                            className="suggestion-card image-card"
-                                            onClick={() => setSubject('college')}
-                                            style={{
-                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${collegeImage})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center'
-                                            }}
-                                        >
-                                            <span>College</span>
-                                            <small>Engineering, Arts, Science</small>
-                                        </button>
-                                        <button
-                                            className="suggestion-card image-card programming-card"
-                                            onClick={() => setSubject('programming')}
-                                            style={{
-                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${programmingImage})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center'
-                                            }}
-                                        >
-                                            <span>Programming</span>
-                                            <small>Coding, Web Dev, DSA</small>
-                                        </button>
-                                        <button
-                                            className="suggestion-card image-card"
-                                            onClick={() => setSubject('exam-prep')}
-                                            style={{
-                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${examPrepImage})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center'
-                                            }}
-                                        >
-                                            <span>Exam Prep</span>
-                                            <small>JEE, NEET, UPSC, SSC</small>
-                                        </button>
-                                        <button
-                                            className="suggestion-card image-card"
-                                            onClick={() => setSubject('general')}
-                                            style={{
-                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${generalImage})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center'
-                                            }}
-                                        >
-                                            <span>General</span>
-                                            <small>Ask anything!</small>
-                                        </button>
-                                    </div>
-                                </div>
-                            ) : (
-                                messages.map((msg, idx) => (
-                                    <ChatMessage key={idx} message={msg} user={user} />
-                                ))
-                            )}
-                            {loading && (
-                                <div className="typing-indicator">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                            )}
-                            <div ref={messagesEndRef} />
-                        </div>
 
-                        <form onSubmit={handleSendMessage} className="chat-input-container">
-                            <input
-                                type="text"
-                                className="input chat-input"
-                                placeholder="Ask me anything..."
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                                disabled={loading}
-                            />
-                            <button type="submit" className="btn btn-primary send-btn" disabled={loading || !input.trim()}>
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button>
-                        </form>
-                    </>
-                )}
+                <div className="chat-messages">
+                    {messages.length === 0 ? (
+                        <div className="welcome-message">
+                            <h1 className="gradient-text">Hello, {user?.name}!</h1>
+                            <p>I'm your Vikash Study Buddy. Ask me anything about:</p>
+                            <div className="suggestion-grid">
+                                <button
+                                    className="suggestion-card image-card"
+                                    onClick={() => setSubject('school')}
+                                    style={{
+                                        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${schoolImage})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}
+                                >
+                                    <span>School</span>
+                                    <small>Class 1-12, Homework</small>
+                                </button>
+                                <button
+                                    className="suggestion-card image-card"
+                                    onClick={() => setSubject('college')}
+                                    style={{
+                                        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${collegeImage})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}
+                                >
+                                    <span>College</span>
+                                    <small>Engineering, Arts, Science</small>
+                                </button>
+                                <button
+                                    className="suggestion-card image-card programming-card"
+                                    onClick={() => setSubject('programming')}
+                                    style={{
+                                        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${programmingImage})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}
+                                >
+                                    <span>Programming</span>
+                                    <small>Coding, Web Dev, DSA</small>
+                                </button>
+                                <button
+                                    className="suggestion-card image-card"
+                                    onClick={() => setSubject('exam-prep')}
+                                    style={{
+                                        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${examPrepImage})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}
+                                >
+                                    <span>Exam Prep</span>
+                                    <small>JEE, NEET, UPSC, SSC</small>
+                                </button>
+                                <button
+                                    className="suggestion-card image-card"
+                                    onClick={() => setSubject('general')}
+                                    style={{
+                                        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${generalImage})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}
+                                >
+                                    <span>General</span>
+                                    <small>Ask anything!</small>
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        messages.map((msg, idx) => (
+                            <ChatMessage key={idx} message={msg} user={user} />
+                        ))
+                    )}
+                    {loading && (
+                        <div className="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    )}
+                    <div ref={messagesEndRef} />
+                </div>
+
+                <form onSubmit={handleSendMessage} className="chat-input-container">
+                    <input
+                        type="text"
+                        className="input chat-input"
+                        placeholder="Ask me anything..."
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        disabled={loading}
+                    />
+                    <button type="submit" className="btn btn-primary send-btn" disabled={loading || !input.trim()}>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                </form>
+
                 <Footer />
             </div>
         </div>

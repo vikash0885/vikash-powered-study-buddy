@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import studyPlanIcon from '../assets/studyplan_v2.png';
 import ProfileSettings from './ProfileSettings';
 import './Sidebar.css';
@@ -11,10 +12,11 @@ function Sidebar({
     onSelectConversation,
     onDeleteConversation,
     onLogout,
-    onToggleStudyPlan,
     onUpdateProfile
 }) {
     const [showProfile, setShowProfile] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <div className="sidebar">
@@ -26,7 +28,10 @@ function Sidebar({
             </div>
 
             <div className="sidebar-menu">
-                <button className="menu-item" onClick={onToggleStudyPlan}>
+                <button
+                    className={`menu-item ${location.pathname === '/study-plan' ? 'active' : ''}`}
+                    onClick={() => navigate('/study-plan')}
+                >
                     <img src={studyPlanIcon} alt="Study Plan" className="menu-icon" />
                     <span>Study Plan Generator</span>
                 </button>

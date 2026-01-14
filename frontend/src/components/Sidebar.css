@@ -45,6 +45,12 @@
     background: var(--bg-tertiary);
 }
 
+.menu-item.active {
+    background: var(--bg-tertiary);
+    border-left: 3px solid var(--accent-primary);
+    color: var(--accent-primary);
+}
+
 .menu-icon {
     width: 20px;
     height: 20px;
