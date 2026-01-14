@@ -37,9 +37,17 @@ async function initDatabase() {
       email TEXT UNIQUE NOT NULL,
       password TEXT NOT NULL,
       education_level TEXT,
+      avatar TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  // Migration: Add avatar column if it doesn't exist
+  try {
+    db.run('ALTER TABLE users ADD COLUMN avatar TEXT');
+  } catch (err) {
+    // Column likely already exists, ignore error
+  }
 
   db.run(`
     CREATE TABLE IF NOT EXISTS conversations (

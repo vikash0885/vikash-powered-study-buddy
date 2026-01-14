@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { studyPlanAPI } from '../services/api';
 import { marked } from 'marked';
+import studyPlanLogo from '../assets/studyplan_v2.png';
 import './StudyPlanGenerator.css';
 
 function StudyPlanGenerator({ onClose }) {
@@ -38,7 +39,10 @@ function StudyPlanGenerator({ onClose }) {
     return (
         <div className="study-plan-container">
             <div className="study-plan-header">
-                <h2>📅 Study Plan Generator</h2>
+                <h2>
+                    <img src={studyPlanLogo} alt="Study Plan" className="header-logo" />
+                    Study Plan Generator
+                </h2>
                 <button className="close-btn" onClick={onClose}>✕</button>
             </div>
 

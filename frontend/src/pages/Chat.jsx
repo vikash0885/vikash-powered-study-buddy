@@ -5,7 +5,7 @@ import ChatMessage from '../components/ChatMessage';
 import SubjectSelector from '../components/SubjectSelector';
 import StudyPlanGenerator from '../components/StudyPlanGenerator';
 import Footer from '../components/Footer';
-import { chatAPI } from '../services/api';
+import { chatAPI, authAPI } from '../services/api';
 import schoolImage from '../assets/school.jpg';
 import collegeImage from '../assets/college.jpg';
 import programmingImage from '../assets/programming.png';
@@ -128,6 +128,18 @@ function Chat({ user, setUser }) {
         }
     };
 
+    const handleUpdateProfile = async (data) => {
+        try {
+            const response = await authAPI.updateProfile(data);
+            setUser(response.data.user);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            return response.data;
+        } catch (error) {
+            console.error('Failed to update profile:', error);
+            throw error;
+        }
+    };
+
     return (
         <div className="chat-page">
             <Sidebar
@@ -139,6 +151,7 @@ function Chat({ user, setUser }) {
                 onDeleteConversation={handleDeleteConversation}
                 onLogout={handleLogout}
                 onToggleStudyPlan={() => setShowStudyPlan(!showStudyPlan)}
+                onUpdateProfile={handleUpdateProfile}
             />
 
             <div className="chat-main">
@@ -221,7 +234,7 @@ function Chat({ user, setUser }) {
                                 </div>
                             ) : (
                                 messages.map((msg, idx) => (
-                                    <ChatMessage key={idx} message={msg} />
+                                    <ChatMessage key={idx} message={msg} user={user} />
                                 ))
                             )}
                             {loading && (

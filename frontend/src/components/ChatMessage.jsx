@@ -1,7 +1,7 @@
 import { marked } from 'marked';
 import './ChatMessage.css';
 
-function ChatMessage({ message }) {
+function ChatMessage({ message, user }) {
     const isUser = message.role === 'user';
 
     const formatContent = (content) => {
@@ -15,7 +15,15 @@ function ChatMessage({ message }) {
     return (
         <div className={`message ${isUser ? 'message-user' : 'message-assistant'}`}>
             <div className="message-avatar">
-                {isUser ? '👤' : '🤖'}
+                {isUser ? (
+                    user?.avatar ? (
+                        <img src={user.avatar} alt={user.name} />
+                    ) : (
+                        <div className="avatar-text">{user?.name?.charAt(0).toUpperCase()}</div>
+                    )
+                ) : (
+                    '🤖'
+                )}
             </div>
             <div className="message-content">
                 {isUser ? (

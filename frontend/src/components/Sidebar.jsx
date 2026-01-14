@@ -1,4 +1,6 @@
-import studyPlanIcon from '../assets/studyplan.jpg';
+import { useState } from 'react';
+import studyPlanIcon from '../assets/studyplan_v2.png';
+import ProfileSettings from './ProfileSettings';
 import './Sidebar.css';
 
 function Sidebar({
@@ -9,8 +11,11 @@ function Sidebar({
     onSelectConversation,
     onDeleteConversation,
     onLogout,
-    onToggleStudyPlan
+    onToggleStudyPlan,
+    onUpdateProfile
 }) {
+    const [showProfile, setShowProfile] = useState(false);
+
     return (
         <div className="sidebar">
             <div className="sidebar-header">
@@ -62,8 +67,14 @@ function Sidebar({
             </div>
 
             <div className="sidebar-footer">
-                <div className="user-info">
-                    <div className="user-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
+                <div className="user-info" onClick={() => setShowProfile(true)} style={{ cursor: 'pointer' }}>
+                    <div className="user-avatar">
+                        {user?.avatar ? (
+                            <img src={user.avatar} alt={user.name} />
+                        ) : (
+                            user?.name?.charAt(0).toUpperCase()
+                        )}
+                    </div>
                     <div className="user-details">
                         <div className="user-name">{user?.name}</div>
                         <div className="user-education">{user?.educationLevel}</div>
@@ -73,6 +84,14 @@ function Sidebar({
                     Logout
                 </button>
             </div>
+
+            {showProfile && (
+                <ProfileSettings
+                    user={user}
+                    onClose={() => setShowProfile(false)}
+                    onUpdate={onUpdateProfile}
+                />
+            )}
         </div>
     );
 }

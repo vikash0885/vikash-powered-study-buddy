@@ -85,7 +85,8 @@ router.post('/login', async (req, res) => {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                educationLevel: user.education_level
+                educationLevel: user.education_level,
+                avatar: user.avatar
             }
         });
     } catch (error) {
@@ -97,7 +98,7 @@ router.post('/login', async (req, res) => {
 // Get current user
 router.get('/me', authMiddleware, async (req, res) => {
     try {
-        const user = await db.prepare('SELECT id, name, email, education_level, created_at FROM users WHERE id = ?')
+        const user = await db.prepare('SELECT id, name, email, education_level, avatar, created_at FROM users WHERE id = ?')
             .get(req.userId);
 
         if (!user) {
@@ -109,11 +110,48 @@ router.get('/me', authMiddleware, async (req, res) => {
             name: user.name,
             email: user.email,
             educationLevel: user.education_level,
+            avatar: user.avatar,
             createdAt: user.created_at
         });
     } catch (error) {
         console.error('Get user error:', error);
         res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Update user profile
+router.put('/profile', authMiddleware, async (req, res) => {
+    try {
+        const { name, educationLevel, avatar } = req.body;
+        const userId = req.userId;
+
+        if (!name) {
+            return res.status(400).json({ error: 'Name is required' });
+        }
+
+        const result = await db.prepare(
+            'UPDATE users SET name = ?, education_level = ?, avatar = ? WHERE id = ?'
+        ).run(name, educationLevel, avatar, userId);
+
+        if (result.changes === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const user = await db.prepare('SELECT id, name, email, education_level, avatar FROM users WHERE id = ?').get(userId);
+
+        res.json({
+            message: 'Profile updated successfully',
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                educationLevel: user.education_level,
+                avatar: user.avatar
+            }
+        });
+    } catch (error) {
+        console.error('Update profile error:', error);
+        res.status(500).json({ error: 'Server error during profile update' });
     }
 });
 
