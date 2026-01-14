@@ -41,6 +41,38 @@ app.get('/api/db-status', (req, res) => {
     }
 });
 
+import fs from 'fs';
+import path from 'path';
+
+// Debug endpoint to list files (Temporary)
+app.get('/api/debug-files', (req, res) => {
+    try {
+        const listFiles = (dir, fileList = []) => {
+            if (!fs.existsSync(dir)) return fileList;
+            const files = fs.readdirSync(dir);
+            files.forEach(file => {
+                const filePath = path.join(dir, file);
+                const stat = fs.statSync(filePath);
+                if (stat.isDirectory()) {
+                    if (file !== 'node_modules' && file !== '.git') {
+                        fileList.push({ name: file, type: 'dir', path: filePath });
+                        listFiles(filePath, fileList);
+                    }
+                } else {
+                    fileList.push({ name: file, type: 'file', path: filePath });
+                }
+            });
+            return fileList;
+        };
+
+        const rootDir = process.cwd();
+        const files = listFiles(rootDir);
+        res.json({ root: rootDir, files: files.map(f => f.path.replace(rootDir, '')) });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error('SERVER ERROR:', err);
