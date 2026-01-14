@@ -2,6 +2,24 @@
     display: flex;
     height: 100vh;
     overflow: hidden;
+    transition: background 0.5s ease;
+}
+
+/* Mood-based themes */
+.chat-page.mood-happy {
+    background: linear-gradient(135deg, #FFD93D 0%, #FF8C42 50%, #6C5CE7 100%);
+}
+
+.chat-page.mood-tired {
+    background: linear-gradient(135deg, #A8DADC 0%, #457B9D 50%, #1D3557 100%);
+}
+
+.chat-page.mood-focused {
+    background: linear-gradient(135deg, #06FFA5 0%, #457B9D 50%, #1D3557 100%);
+}
+
+.chat-page.mood-excited {
+    background: linear-gradient(135deg, #F72585 0%, #B5179E 50%, #7209B7 100%);
 }
 
 .chat-main {
