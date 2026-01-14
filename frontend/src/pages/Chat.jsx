@@ -6,6 +6,7 @@ import SubjectSelector from '../components/SubjectSelector';
 import StudyPlanGenerator from '../components/StudyPlanGenerator';
 import Footer from '../components/Footer';
 import { chatAPI } from '../services/api';
+import schoolImage from '../assets/school.jpg';
 import './Chat.css';
 
 function Chat({ user, setUser }) {
@@ -152,7 +153,15 @@ function Chat({ user, setUser }) {
                                     <h1 className="gradient-text">Hello, {user?.name}!</h1>
                                     <p>I'm your Vikash Study Buddy. Ask me anything about:</p>
                                     <div className="suggestion-grid">
-                                        <button className="suggestion-card" onClick={() => setSubject('school')}>
+                                        <button
+                                            className="suggestion-card image-card"
+                                            onClick={() => setSubject('school')}
+                                            style={{
+                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${schoolImage})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center'
+                                            }}
+                                        >
                                             <span>🏫</span>
                                             <span>School</span>
                                             <small>Class 1-12, Homework</small>
