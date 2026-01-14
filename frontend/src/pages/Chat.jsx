@@ -10,6 +10,7 @@ import schoolImage from '../assets/school.jpg';
 import collegeImage from '../assets/college.jpg';
 import programmingImage from '../assets/programming.png';
 import examPrepImage from '../assets/examprep.jpg';
+import generalImage from '../assets/general.jpg';
 import './Chat.css';
 
 function Chat({ user, setUser }) {
@@ -204,8 +205,15 @@ function Chat({ user, setUser }) {
                                             <span>Exam Prep</span>
                                             <small>JEE, NEET, UPSC, SSC</small>
                                         </button>
-                                        <button className="suggestion-card" onClick={() => setSubject('general')}>
-                                            <span>📚</span>
+                                        <button
+                                            className="suggestion-card image-card"
+                                            onClick={() => setSubject('general')}
+                                            style={{
+                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${generalImage})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center'
+                                            }}
+                                        >
                                             <span>General</span>
                                             <small>Ask anything!</small>
                                         </button>
