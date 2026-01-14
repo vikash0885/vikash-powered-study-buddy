@@ -173,7 +173,7 @@ function Chat({ user, setUser }) {
                             <div className="suggestion-grid">
                                 <button
                                     className="suggestion-card image-card"
-                                    onClick={() => setSubject('school')}
+                                    onClick={() => handleSubjectSelect('school')}
                                     style={{
                                         backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${schoolImage})`,
                                         backgroundSize: 'cover',
@@ -185,7 +185,7 @@ function Chat({ user, setUser }) {
                                 </button>
                                 <button
                                     className="suggestion-card image-card"
-                                    onClick={() => setSubject('college')}
+                                    onClick={() => handleSubjectSelect('college')}
                                     style={{
                                         backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${collegeImage})`,
                                         backgroundSize: 'cover',
@@ -197,7 +197,7 @@ function Chat({ user, setUser }) {
                                 </button>
                                 <button
                                     className="suggestion-card image-card programming-card"
-                                    onClick={() => setSubject('programming')}
+                                    onClick={() => handleSubjectSelect('programming')}
                                     style={{
                                         backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${programmingImage})`,
                                         backgroundSize: 'cover',
@@ -209,7 +209,7 @@ function Chat({ user, setUser }) {
                                 </button>
                                 <button
                                     className="suggestion-card image-card"
-                                    onClick={() => setSubject('exam-prep')}
+                                    onClick={() => handleSubjectSelect('exam-prep')}
                                     style={{
                                         backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${examPrepImage})`,
                                         backgroundSize: 'cover',
@@ -221,7 +221,7 @@ function Chat({ user, setUser }) {
                                 </button>
                                 <button
                                     className="suggestion-card image-card"
-                                    onClick={() => setSubject('general')}
+                                    onClick={() => handleSubjectSelect('general')}
                                     style={{
                                         backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${generalImage})`,
                                         backgroundSize: 'cover',
