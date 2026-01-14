@@ -60,6 +60,13 @@ function Chat({ user, setUser }) {
         setSubject(null);
     };
 
+    const handleSubjectSelect = (selectedSubject) => {
+        // Start a new chat with the selected subject
+        setCurrentConversation(null);
+        setMessages([]);
+        setSubject(selectedSubject);
+    };
+
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if (!input.trim() || loading) return;
