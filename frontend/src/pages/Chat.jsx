@@ -166,8 +166,15 @@ function Chat({ user, setUser }) {
                                             <span>School</span>
                                             <small>Class 1-12, Homework</small>
                                         </button>
-                                        <button className="suggestion-card" onClick={() => setSubject('college')}>
-                                            <span>🎓</span>
+                                        <button
+                                            className="suggestion-card image-card"
+                                            onClick={() => setSubject('college')}
+                                            style={{
+                                                backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(${collegeImage})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center'
+                                            }}
+                                        >
                                             <span>College</span>
                                             <small>Engineering, Arts, Science</small>
                                         </button>
