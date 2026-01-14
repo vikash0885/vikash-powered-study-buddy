@@ -1,3 +1,4 @@
+import studyPlanIcon from '../assets/studyplan.jpg';
 import './Sidebar.css';
 
 function Sidebar({
@@ -21,7 +22,7 @@ function Sidebar({
 
             <div className="sidebar-menu">
                 <button className="menu-item" onClick={onToggleStudyPlan}>
-                    <span>📅</span>
+                    <img src={studyPlanIcon} alt="Study Plan" className="menu-icon" />
                     <span>Study Plan Generator</span>
                 </button>
             </div>
