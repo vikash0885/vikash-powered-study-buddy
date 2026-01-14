@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authAPI } from '../services/api';
-import Footer from '../components/Footer';
 import './Auth.css';
 
 function Register({ setUser }) {
@@ -128,9 +127,9 @@ function Register({ setUser }) {
 
                 <div className="auth-footer">
                     <p>Already have an account? <Link to="/login" className="link">Log in</Link></p>
+                    <p className="creator-credit">Created with ❤️ by <span className="creator-name">Vikash Mishra</span></p>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }
