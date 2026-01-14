@@ -162,7 +162,6 @@ function Chat({ user, setUser }) {
                                                 backgroundPosition: 'center'
                                             }}
                                         >
-                                            <span>🏫</span>
                                             <span>School</span>
                                             <small>Class 1-12, Homework</small>
                                         </button>
